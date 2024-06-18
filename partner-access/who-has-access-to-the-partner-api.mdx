@@ -1,0 +1,21 @@
+---
+title: "Partner API Access"
+description: "API access determined by shop plan and partner status"
+---
+Access to the Partner API is determined by the type of plan a shop has, as well as the status of the integration partner:
+
+1.  Access for Shops:
+    *   As of April 2022, custom API access for individual shops is limited to those on enterprise plans.
+    *   Shops that already had custom API access before this date have been granted 'grandfathered access.' This means they retain their custom API privileges. This change primarily affects new installations from that point forward.
+    *   Shops on non-enterprise plans can still generate API keys and use them with our Integration Partners. However, they are restricted from using these keys for custom implementations.
+2.  Access for Integration Partners:
+    *   Integration Partners retain full API access, regardless of the shop's plan. This means that they can access the API for shops that are not on enterprise plans, enabling broader functionality.
+    *   It is crucial for Partners to use their own Partner API authentication tokens when accessing the API. Errors can arise if a Partner incorrectly uses a Shop’s API auth token without including their own Partner auth token. This scenario typically triggers an error message related to the Shop’s plan limitations.
+
+In summary, the API access varies based on the type of user and their plan. The key takeaway for developers and integration partners is the importance of using the correct authentication tokens to avoid encountering plan-related error messages.
+
+Did this page help you?
+
+Yes
+
+No
