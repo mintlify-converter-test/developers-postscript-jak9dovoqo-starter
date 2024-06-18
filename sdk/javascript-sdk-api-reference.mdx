@@ -1,0 +1,144 @@
+---
+title: "window.postscript"
+description: "Reference the SDK"
+---
+# window.postscript
+
+When the SDK is installed properly, you should be able to reference it using `window.postscript`.
+
+## window.postscript.identify
+
+Identifies a subscriber on your site.
+
+#### Usage:
+
+```javascript
+window.postscript.identify({
+  phone: "555-555-5555"
+});
+
+```
+
+| Payload | Description |
+| --- | --- |
+| `{ "phone": "555-555-5555" }` | A JSON payload object to use to identify the subscriber. It **must** have a `phone` field to look the subscriber up by. |
+
+Returns result indicating whether or not a subscriber was found and if so, that they were cookied.
+
+## window.postscript.getSubscriberId
+
+Returns a Postscript Subscriber ID if found.
+
+#### Usage:
+
+```javascript
+window.postscript.getSubscriberId();
+
+```
+
+## window.postscript.event
+
+Fires an event for a subscriber.
+
+#### Usage:
+
+```javascript
+window.postscript.event('event_name', payload);
+
+```
+
+#### Supported Events
+
+| Event Name | Description |
+| --- | --- |
+| `page_view` | Fires an event for Subscriber Viewed Product. For use in "Subscriber Viewed Product" automations (i.e. Browse Abandonment). |
+| `add_to_cart` | Fires an event for Product Added to Cart. For use in "Product Added to Cart" automations (i.e. Browse Abandonment). |
+
+#### Payload Properties
+
+| Property | Description | Example |
+| --- | --- | --- |
+| `shop_id` | Your Postscript shop\_id for your account. | 123456 |
+| `url` | The URL of the page the event occurred on. This **must** be a full URL, not a relative URL, including the full domain. | [https://example.myshopify.com/products/red-shoes](https://example.myshopify.com/products/red-shoes) |
+| `search_params` | An object representing the query parameters on the current URL. | { "variant" : "1935013205" } |
+| `page_type` | The type of page that the event occurred on. | product |
+| `referrer` | The referrer for the current page. This can be `document.referrer` for most integrations. | [https://example.myshopify.com/collections/shoes](https://example.myshopify.com/collections/shoes) |
+| `resource` | An object representing the product data. See properties below. |     |
+| `resource.category` | The product type of the current product being viewed or added to cart. | Shoes |
+| `resource.name` | The title of the current product. | Red Shoes |
+| `resource.price_in_cents` | The price of the product in cents | 6500 |
+| `resource.resource_id` | The id of the product | 9250252 |
+| `resource.resource_type` | This will always be "product" | product |
+| `resource.sku` | The SKU of the current variant being viewed or added to cart, if available. | AF1RED-12 |
+| `resource.variant_id` | The SKU of the current variant being viewed or added to cart. | 1935013205 |
+| `resource.vendor` | The vendor of the product. | Nike |
+
+#### Example Payload
+
+```json
+{  
+    "shop_id": "123456",  
+    "url": "https://example.myshopify.com/products/antique-drawers",  
+    "search_params": {  
+	    "variant": "123456789"  
+	}  
+    "page_type": "product",  
+    "referrer": "https://example.myshopify.com/collections/all",  
+    "resource": {  
+        "category": "Indoor",  
+        "name": "Antique Drawers",  
+        "price_in_cents": 25000,  
+        "resource_id": 123456789,  
+        "resource_type": "product",  
+        "sku": null,  
+        "variant_id": 123456789,  
+        "vendor": "Company 123"  
+    }  
+}
+
+```
+
+## window.postscript.popups.open
+
+Opens a specified popup programmatically.
+
+#### Usage:
+
+```javascript
+window.postscript.popups.open(popupId, options);
+
+```
+
+#### Parameters
+
+*   **popupId** (required): The ID of the popup to open.
+*   **options** (optional): Configuration for when and how the popup is fired.
+
+#### Options Properties
+
+| Property | Type | Description | Default |
+| --- | --- | --- | --- |
+| `activePopupBehavior` | string | Controls what happens to the currently open popup if a second popup is programmatically triggered. Possible values: `ALWAYS_DISMISS`, `NEVER_DISMISS`, `DISMISS_WHEN_SOFT_CLOSED`. | `ALWAYS_DISMISS` |
+| `respectPopupStatus` | boolean | Determines if the popup respects the status cookie. If `true`, popups previously dismissed won't show again (or will show in the close bubble if soft closed). If `false`, the popup will open regardless of any prior dismissals. | `true` |
+
+#### activePopupBehavior Values
+
+*   **`ALWAYS_DISMISS`**: The first popup will be closed, and the programmatic popup will open.
+*   **`NEVER_DISMISS`**: The first popup stays open, and the programmatic trigger is ignored.
+*   **`DISMISS_WHEN_SOFT_CLOSED`**: The programmatic popup only opens if the first popup was in the close bubble state.
+
+#### Example
+
+```javascript
+window.postscript.popups.open(123456, {
+  activePopupBehavior: 'ALWAYS_DISMISS',
+  respectPopupStatus: false
+});
+
+```
+
+Did this page help you?
+
+Yes
+
+No
