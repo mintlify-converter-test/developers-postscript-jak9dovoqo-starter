@@ -1,0 +1,106 @@
+---
+title: "Headless Shopify Browse Abandonment"
+description: "Enabling Browse Abandonment automations in a Headless Shopify store using Postscript"
+---
+If you're a Headless Shopify store using Postscript, one of the things that won't just work out of the box are Browse Abandonment automations. Browse Abandonment automations are automations that get triggered whenever a subscriber to your store views a product on your store's website or adds a product to their cart, but never begins a checkout.
+
+Because Browse Abandonment automations are so valuable to our customers, we want to make sure that you can still make them work, even if going with a Headless solution.
+
+## Installing our JavaScript SDK
+
+The first thing you'll need to do in order to get Browse Abandonment automations to work on your Headless site is to install our JavaScript SDK.
+
+You can add our JavaScript SDK directly in your code, or you can use a tag manager, like [Google Tag Manager](https://tagmanager.google.com/)
+ to add it.
+
+#### Adding the SDK Manually
+
+To add the JavaScript SDK directly, follow the below steps:
+
+1.  Add the following code to the `<head>` section of every page you would like the Browse Abandonment functionality to work. We recommend placing this on all website pages for best results. Place it right before the closing `</head>` tag:  
+    `<script async src="https://sdk.postscript.io/sdk.bundle.js?shopId=XXXX"></script>`
+2.  Replace **XXXX** above with your Postscript Store ID. This ID is **not** your store name, but a numerical number.
+3.  You can locate your store ID in [your account settings page in your Postscript Dashboard](https://app.postscript.io/account/settings)
+    .
+
+![1532](https://files.readme.io/3d828db-ShopID.gif "ShopID.gif")
+
+You can also find installation instructions [here](/docs/about-our-sdk#headless-shopify-stores)
+.
+
+## Firing Browse Abandonment Events
+
+Once you have the SDK installed, you're now ready to write the code for firing our Browse Abandonment events.
+
+There are two main events that you'll want to ensure you are firing events for:
+
+*   "Subscriber Viewed Product"
+*   "Product Added to Cart"
+
+### Subscriber Viewed Product
+
+Subscriber Viewed Product events should be fired whenever a subscriber views a product on your site. You will have to determine when and where to fire this event on your site, but once you do, here's how you can tell us the event happened so that we can kick off the appropriate automations:
+
+```javascript
+window.postscript.event('page_view', { 
+  "shop_id": "123456", // your Postscript Shop ID
+  "url": "https://example.myshopify.com/products/antique-drawers", // the current page
+  "search_params": { "variant": "123456789" }, 
+  "page_type": "product", 
+  "referrer": "https://example.myshopify.com/collections/all", // the referring page
+  "resource": { // information about the product
+  	"category": "Indoor", 
+  	"name": "Antique Drawers", 
+  	"price_in_cents": 25000, 
+  	"resource_id": 123456789, 
+  	"resource_type": "product", 
+  	"sku": null, 
+  	"variant_id": 123456789, 
+  	"vendor": "Company 123" 
+	} 
+});
+
+```
+
+This will provide us with the necessary information to kick off a "Subscriber Viewed Product" automation in Postscript.
+
+### Product Added to Cart
+
+Product Added to Cart events should be fired whenever a subscriber adds a product to their cart on your site. You will have to determine when and where to fire this event on your site, but once you do, here's how you can tell us the event happened so that we can kick off the appropriate automations:
+
+```javascript
+window.postscript.event('add_to_cart', { 
+  "shop_id": "123456", // your Postscript Shop ID
+  "url": "https://example.myshopify.com/products/antique-drawers", // the current page
+  "search_params": { "variant": "123456789" }, 
+  "page_type": "product", 
+  "referrer": "https://example.myshopify.com/collections/all", // the referring page
+  "resource": { // information about the product
+  	"category": "Indoor", 
+  	"name": "Antique Drawers", 
+  	"price_in_cents": 25000, 
+  	"resource_id": 123456789, 
+  	"resource_type": "product", 
+  	"sku": null, 
+  	"variant_id": 123456789, 
+  	"vendor": "Company 123" 
+	} 
+});
+
+```
+
+This will provide us with the necessary information to kick off a "Product Added to Cart" automation in Postscript.
+
+To see more on how to use our JavaScript SDK, check out [our JavaScript SDK API reference here](/docs/javascript-sdk-api-reference)
+.
+
+* * *
+
+Have questions or feedback? Feel free to reach out to us at [developersupport@postscript.io](mailto:developersupport@postscript.io)
+.
+
+Did this page help you?
+
+Yes
+
+No
