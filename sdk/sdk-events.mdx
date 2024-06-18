@@ -1,0 +1,115 @@
+---
+title: "Event Details Structure"
+description: "Structure of event details for form submissions"
+---
+# Event Details Structure
+
+*   `type`: The type of event fired. Currently the only event type is "formSubmit".
+*   `popupId`: The ID of the popup that fired the event.
+*   `popupName`: The name of the popup that fired the event.
+*   `values`: The values of elements in the popup form. This includes
+    *   `email`: The email if submitted as part of the form.
+    *   `phone`: The phone number if submitted as part of the form.
+    *   **Custom Data**: Data from other questions in the form will be included using the name of the subscriber property that is mapped to the question.
+
+## Example
+
+```json
+{
+  detail: {
+    type: "formSubmit",
+    popupId: 42,
+    popupName: "Mobile + Onsite Opt-In",
+    values: {
+      phone: "15558675309",
+      gender: "female"
+    }
+  }
+}
+
+```
+
+# Use Cases
+
+## Track Form Submission to Google Analytics
+
+```javascript
+window.addEventListener("postscriptPopup", function(ev) {
+    if (ev.detail.type == 'formSubmit') {
+        const { values, popupName, popupId } = ev.detail;
+
+        // Create event data with dynamic properties from 'values' and include 'popupId'
+        const eventData = {
+            event_category: 'Form Submission',
+            event_label: popupName,
+            popup_id: popupId, 
+            ...values 
+        };
+
+        // Sending data to GA4
+        gtag('event', 'postscript_form_submit', eventData);
+    }
+});
+
+```
+
+## Track Lead to Meta Pixel
+
+```javascript
+window.addEventListener("postscriptPopup", function(ev) {
+    if (ev.detail.type == 'formSubmit') {
+        const { values, popupName, popupId } = ev.detail;
+
+        // Create event data with dynamic properties from 'values' and include 'popupId'
+        const eventData = {
+            content_name: popupName,
+            content_category: 'Form Submission',
+            popup_id: popupId, 
+            ...values
+        };
+
+        // Track event using Facebook Pixel
+        fbq('track', 'Lead', eventData);
+    }
+});
+
+```
+
+## Add Data to GTM Data Layer
+
+```javascript
+window.addEventListener("postscriptPopup", function(ev) {
+    if (ev.detail.type == 'formSubmit') {
+        var detail = ev.detail;
+        var values = detail.values;
+        var popupName = detail.popupName;
+        var popupId = detail.popupId;
+
+        // Prepare data for GTM dataLayer
+        var dataLayerEvent = {
+            'event': 'postscript_form_submit',
+            'popup_name': popupName,
+            'popup_id': popupId
+        };
+
+        // Add values to dataLayerEvent
+        for (var key in values) {
+            if (values.hasOwnProperty(key)) {
+                dataLayerEvent[key] = values[key];
+            }
+        }
+
+        // Push the event data to the dataLayer
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push(dataLayerEvent);
+    }
+});
+
+
+```
+
+Did this page help you?
+
+Yes
+
+No
