@@ -1,91 +1,101 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Starter Kit",
+  "name": "developers-postscript",
   "logo": {
-    "dark": "/logo/dark.svg",
-    "light": "/logo/light.svg"
+    "dark": "/logo/developers-postscript_logo.png",
+    "light": "/logo/developers-postscript_logo_inverted.png"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "/developers-postscript_favicon.png",
   "colors": {
-    "primary": "#0D9373",
-    "light": "#07C983",
-    "dark": "#0D9373",
+    "primary": "#5724E9",
+    "light": "#4a16dd",
+    "dark": "#5724E9",
     "anchors": {
-      "from": "#0D9373",
-      "to": "#07C983"
+      "from": "#5724E9",
+      "to": "#4a16dd"
     }
   },
   "topbarLinks": [
     {
-      "name": "Support",
-      "url": "mailto:hi@mintlify.com"
+      "name": "Book a Demo",
+      "url": "https://postscript.io/schedule-a-demo"
     }
   ],
   "topbarCtaButton": {
-    "name": "Dashboard",
-    "url": "https://dashboard.mintlify.com"
+    "name": "Start Free Trial",
+    "url": "https://postscript.io/try-postscript"
   },
-  "tabs": [
-    {
-      "name": "API Reference",
-      "url": "api-reference"
-    }
-  ],
+  "tabs": [],
   "anchors": [
-    {
-      "name": "Documentation",
-      "icon": "book-open-cover",
-      "url": "https://mintlify.com/docs"
-    },
-    {
-      "name": "Community",
-      "icon": "slack",
-      "url": "https://mintlify.com/community"
-    },
     {
       "name": "Blog",
       "icon": "newspaper",
-      "url": "https://mintlify.com/blog"
+      "url": "https://postscript.io/blog"
     }
   ],
+  "modeToggle": {
+    "default": "dark"
+  },
   "navigation": [
     {
-      "group": "Get Started",
+      "group": "Partner Access",
       "pages": [
-        "introduction",
-        "quickstart",
-        "development"
+        "partner-access/who-has-access-to-the-partner-api"
       ]
     },
     {
-      "group": "Essentials",
+      "group": "Compliance",
       "pages": [
-        "essentials/markdown",
-        "essentials/code",
-        "essentials/images",
-        "essentials/settings",
-        "essentials/navigation",
-        "essentials/reusable-snippets"
+        "compliance/compliance",
+        "compliance/pi-legal-disclaimer"
       ]
     },
     {
-      "group": "API Documentation",
+      "group": "API Versioning",
       "pages": [
-        "api-reference/introduction"
+        "api-versioning/can-i-send-events-via-both-v1-and-v2-api-versions",
+        "api-versioning/in-the-v1-api-partners-needed-to-install-triggers-for-each-partner-before-adding-them-to-the-store-will-we-need-to-do-the-same-for-the-v2-api"
       ]
     },
     {
-      "group": "Endpoint Examples",
+      "group": "SDK",
       "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/delete"
+        "sdk/javascript-sdk-api-reference",
+        "sdk/sdk-events"
+      ]
+    },
+    {
+      "group": "Getting Started",
+      "pages": [
+        "getting-started/getting-started",
+        "getting-started/about-our-sdk"
+      ]
+    },
+    {
+      "group": "Best Practices",
+      "pages": [
+        "best-practices/what-phone-number-formats-are-acceptable",
+        "best-practices/are-the-trigger-event-properties-for-an-event-only-visible-once-that-specific-event-exists-in-postscript",
+        "best-practices/what-is-the-best-way-to-send-a-link-as-a-merge-tag"
+      ]
+    },
+    {
+      "group": "API Details",
+      "pages": [
+        "api-details/api-authentication",
+        "api-details/rate-limits",
+        "api-details/how-to-trigger-browse-abandonment-events-via-sdk",
+        "api-details/back-in-stock-targeting",
+        "api-details/how-to-add-subscribers-using-api",
+        "api-details/how-to-use-zapier-with-our-api"
       ]
     }
   ],
   "footerSocials": {
-    "x": "https://x.com/mintlify",
-    "github": "https://github.com/mintlify",
-    "linkedin": "https://www.linkedin.com/company/mintsearch"
+    "tiktok": "https://www.tiktok.com/@postscriptsms",
+    "facebook": "https://www.facebook.com/PostscriptIO/",
+    "instagram": "https://www.instagram.com/postscriptdotio/?hl=en",
+    "linkedin": "https://www.linkedin.com/company/postscriptio/",
+    "twitter": "https://twitter.com/PostscriptIO"
   }
 }
