@@ -1,0 +1,97 @@
+---
+title: "Use the Postscript Zapier app"
+description: "Guide to using Zapier with Postscript to collect subscribers"
+---
+> ## 📘Use the Postscript Zapier app instead!
+> 
+> We now have an official Postscript Zapier app! You can get it on Zapier [here](https://zapier.com/apps/postscript-1/integrations)
+> .
+
+This guide walks you through how you can use Zapier with our API to collect subscribers. This guide is intended for Shops looking to use Zapier to connect other apps to Postscript where we don't yet have an integration.
+
+For this example, we'll look at how to add subscribers from Mailchimp into Postscript.
+
+## Get your Postscript API Key
+
+First, you’ll need to obtain your Postscript API Key.
+
+Navigate to your Postscript account, click on your name in the top-right corner, and choose **API**.
+
+![936](https://files.readme.io/8f0ef64-mceclip0.png "mceclip0.png")
+
+If you haven't already created an API key pair, click the button **Create Security Key Pair** to generate one.
+
+![3038](https://files.readme.io/59f6cae-CleanShot_2021-07-27_at_16.16.092x.png "CleanShot 2021-07-27 at 16.16.09@2x.png")
+
+Once you've got an API key pair, copy your **Private Key** and save it somewhere handy, you'll need it again later.
+
+![3028](https://files.readme.io/dfaca6a-CleanShot_2021-07-27_at_16.15.172x.png "CleanShot 2021-07-27 at 16.15.17@2x.png")
+
+Next, you’ll need to create a keyword in Postscript.
+
+## Create a Keyword in Postscript
+
+Now you'll need to create a keyword and keyword reply within Postscript so that you have a way for users to opt into your subscriber list. When you installed Postscript, you were given two default keywords that you can use if you want, or instructions here will show you how to create a custom keyword. Remember, custom keywords are not available on the free tier.
+
+1.  First, click **Keywords** on the left.
+2.  Next, click **Create Keyword**, found at the top right of the screen.
+3.  Name your keyword, decide if you will include a coupon in the reply, and save.
+4.  If you want to edit the reply, click the purple **Reply** box or to create an automatic reply to this keyword, click **Add Action** and then create your reply. _The Keyword Reply that you create is the text they'll immediately receive upon subscribing._
+
+With your API Key and Keyword, you're now ready to set things up in Zapier.
+
+## Create a Zap
+
+For your zap, you’ll need the following information:
+
+|     |     |
+| --- | --- |
+| URL | [https://api.postscript.io/api/v2/subscribers](https://api.postscript.io/api/v2/subscribers) |
+| Payload Type | json |
+| **Data** |     |
+| keyword | \[Keyword created above\] |
+| subscribers | \[ {  "tags": \[list of tags to add to subscriber (optional) \],  "phone\_number": "\[phone number\]",  "email": "\[email\]"  }\] |
+| **Headers** |     |
+| Authorization | Bearer \[your API key from above\] |
+
+1.  When creating a new Zap, you first select the event (in this case, a new Mailchimp subscriber) and connect Zapier to the app.
+
+![1934](https://files.readme.io/d8fb71a-CleanShot_2021-07-27_at_16.54.252x.png "CleanShot 2021-07-27 at 16.54.25@2x.png")
+
+2.  In the next step, search for **Webhooks**, and select Webhooks by Zapier
+
+![1830](https://files.readme.io/c58fd67-CleanShot_2021-07-27_at_16.55.402x.png "CleanShot 2021-07-27 at 16.55.40@2x.png")
+
+3.  Select POST as the action.
+
+![1818](https://files.readme.io/f1bb9a5-CleanShot_2021-07-27_at_16.56.232x.png "CleanShot 2021-07-27 at 16.56.23@2x.png")
+
+4.  Add the data from above as shown.
+    
+5.  Add Headers
+    
+
+![1682](https://files.readme.io/e513be1-CleanShot_2021-07-27_at_16.59.212x.png "CleanShot 2021-07-27 at 16.59.21@2x.png")
+
+6.  Once you've completed all of Steps test your Zap to make sure that it is a success. Turn on the Zap, and submit a test lead before pushing live to ensure that subscribers are being passed through.
+
+> ## ❗️Update Your Form
+> 
+> In order for you to stay compliant when signing up new subscribers, you’ll want to make sure your form has the following language:
+> 
+> `*By signing up, I agree to receive recurring automated marketing text messages (e.g. cart reminders) at the phone number provided. Consent is not a condition to purchase. Msg & data rates may apply. Msg frequency varies. Reply HELP for help and STOP to cancel. View our Terms of Service and Privacy Policy.` \[The terms and conditions and privacy policy pages should be _linked_ in this message\]
+> 
+> For more information on compliance, see [our guide here](/docs/compliance)
+> .
+
+And with that, you’re ready to start collecting subscribers using Postscript + Zapier!
+
+## Troubleshooting
+
+If, when setting up the event, you get a **You do not have permission to do that** error, please ensure you have "Bearer " (with a space after it) before your private API key. It should be “Bearer \[API token\]” capitalized, no colon, and a space before the token.
+
+Did this page help you?
+
+Yes
+
+No
