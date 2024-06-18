@@ -1,0 +1,47 @@
+---
+title: "JavaScript SDK Installation"
+description: "Guide to installing and using our JavaScript SDK for subscriber collection and SMS opt-ins on Shopify stores"
+---
+Our JavaScript SDK gives shops the ability to use our popups for subscriber collection, add an SMS opt-in checkbox on checkouts with TCPA-compliant language, identify subscribers visiting your website, and fire events based on subscriber activity.
+
+In order for you to get access to these features, you'll need to ensure that our SDK is installed properly on your site.
+
+## Installing the JavaScript SDK
+
+### Standard Shopify Stores
+
+If you use a standard Shopify store (i.e. it's not a headless store) and you add the Postscript Shopify app to your store, then you don't have to do anything else to install our JavaScript SDK, it's already been done for you!
+
+### Headless Shopify Stores
+
+If you are running a headless Shopify store, then you'll need to add our JavaScript SDK manually. You can either do it directly in your code, or you can use a tag manager, like [Google Tag Manager](https://tagmanager.google.com/)
+ to add it.
+
+#### Adding the SDK Manually
+
+1.  Add the following code to the `<head>` section of every page you would like the SDK's functionality to work. Place it right before the closing `</head>` tag:  
+    `<script async src="https://sdk.postscript.io/sdk.bundle.js?shopId=XXXX"></script>`
+2.  Replace **XXXX** above with your Postscript Store ID. This ID is **not** your store name, but a numerical number.
+3.  You can locate your store ID in [your account settings page in your Postscript Dashboard](https://app.postscript.io/account/settings)
+    .
+
+![1532](https://files.readme.io/e9a6f42-ShopID.gif "ShopID.gif")
+
+To test that you have the SDK installed properly on your site, open up your browser's developer tools for a webpage you have tried to install the SDK on. Then open up the JavaScript console in the developer tools. You should get a response when typing in `window.postscript` and hitting enter. If you do, you have successfully installed our SDK!
+
+## Terms and Conditions
+
+Your use of the Postscript JavaScript SDK is subject to our API License and Terms of Service, available at [https://www.postscript.io/api-terms-of-service](https://www.postscript.io/api-terms-of-service)
+. By using our SDK, you agree to be bound by these terms.
+
+Compliance in SMS is of the utmost importance and we work hard with our partners to ensure that we minimize legal risk for merchants. If you have any questions, please reach out to [partnersupport@postscript.io](mailto:partnersupport@postscript.io)
+.
+
+*   [API Reference](/docs/javascript-sdk-api-reference)
+    
+
+Did this page help you?
+
+Yes
+
+No
