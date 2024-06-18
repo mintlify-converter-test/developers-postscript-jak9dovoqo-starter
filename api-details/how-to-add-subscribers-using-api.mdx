@@ -1,0 +1,78 @@
+---
+title: "API Subscriber Guide"
+description: "Guide on using our API to add subscribers."
+---
+This guide provides information on how you can use our API to add subscribers.
+
+## Why use our API to add Subscribers
+
+There are many different reasons for why you might want to use our API for adding subscribers, but a few of them are:
+
+*   Building your own custom subscriber form (like a popup or checkout form)
+*   Building your own custom integration with another service and Postscript
+*   Adding subscribers you’ve collected elsewhere to Postscript
+
+## How to use our API to add Subscribers
+
+In order to use the API to add subscribers, you need to take the following steps:
+
+1.  Log into your [Postscript dashboard](https://app.postscript.io/dashboard)
+    
+2.  Navigate to [your Account API page](https://app.postscript.io/account/api)
+     to get your API Key
+3.  If you already have one generated, click **Show** link and copy the key. If you don't already have one generated, click the button **Create Security Key Pair**, then click the **Show** link and copy the key.
+4.  In the [KEYWORDS section](https://app.postscript.io/keywords)
+    , create a new keyword you want to use to track opt-ins from this source.
+5.  Then select OPT IN and create whatever REPLY you want (what you want the user to get back when they sign up).
+6.  Use the API to get the id for the Keyword you just created by using the following API call (you can grab the keyword id from the keyword's url in Postscript):
+
+```curl
+curl --request GET \
+     --url https://api.postscript.io/api/v2/keywords/[keyword_id] \
+     --header 'Authorization: Bearer [use the API key from your Postscript account page]' \
+     --header 'accept: application/json'
+
+```
+
+7.  In the response to the API call above, find the Keyword id for the Keyword you created, you will use this in the next step
+8.  Now you can add subscribers to Postscript using the API by setting up your API call in the below way:
+
+```curl
+curl --request POST \
+     --url https://api.postscript.io/api/v2/subscribers \
+     --header 'Accept: application/json' \
+     --header 'Authorization: Bearer [Your API Key]' \
+     --header 'Content-Type: application/json' \
+     --data '
+{
+     "origin": "website",
+     "properties": {
+          "VIP": true
+     },
+     "phone_number": "[subscriber phone number",\
+     "email": "[subscriber email]",\
+     "keyword": "[keyword obtained from step above]"\
+}\
+'\
+\
+```\
+\
+> ## ❗️Compliance\
+> \
+> Anywhere you are collecting subscriber information, you’ll want to be sure to add compliant language, like the below example.\
+> \
+> Example compliant language when collecting subscriber information:\
+> \
+> `*By signing up, I agree to receive recurring automated marketing text messages (e.g. cart reminders) at the phone number provided. Consent is not a condition to purchase. Msg & data rates may apply. Msg frequency varies. Reply HELP for help and STOP to cancel. View our Terms of Service and Privacy Policy.` \[The terms and conditions and privacy policy pages should be _linked_ in this message\]\
+> \
+> For more information on compliance, see [our guide here](/docs/compliance)\
+> .\
+\
+And that’s everything you need to know to start using our API to add subscribers. You can find more detailed information about how our Subscriber API works [here](/reference/subscribers)\
+.\
+\
+Did this page help you?\
+\
+Yes\
+\
+No
