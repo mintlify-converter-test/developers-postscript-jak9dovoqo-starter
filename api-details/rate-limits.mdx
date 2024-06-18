@@ -1,0 +1,35 @@
+---
+title: "API Rate Limits"
+description: "Summary of our API rate limits"
+---
+Our API has rate limits in place. If you send too many requests in a short amount of time, you may run into `429` error responses. This means you have hit our rate limits.
+
+Our API has the following rate limits:
+
+*   We allow up to 15 requests per second on our endpoints
+*   This rate limit applies to requests by token:
+    *   If only using a partner token, then it is 15 requests per second for that partner
+    *   If only using a shop token, then it is 15 requests per second for that shop
+    *   If using a partner token **and** a shop token, then it is 15 requests per second for that partner/shop combination
+
+If you suddenly see an increasing amount of rate limited requests and think there they are in error, please contact us.
+
+## Handling rate limits
+
+One technique for handling limits is to watch for `429` status codes and build in a retry mechanism. Some common ways to retry the API are to follow an exponential backoff schedule and to add some randomness to the backoff, in order to avoid lots of requests all at once.
+
+The error object returned for rate limits, looks like the following:
+
+```json
+{
+  "error_code": 3002,
+  "error_message": "Rate limit exceeded",
+  "success": false
+}
+```
+
+Did this page help you?
+
+Yes
+
+No
