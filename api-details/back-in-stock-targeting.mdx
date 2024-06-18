@@ -1,0 +1,131 @@
+---
+title: "Headless Integration"
+description: "Postscript Back In Stock compatibility and implementation"
+---
+> ## 🚧Headless Integration
+> 
+> Please note that the Postscript Back In Stock feature is designed to operate exclusively with Shopify's Online Store. It is not compatible with headless Shopify integrations at this time.
+
+# Link Injection Targeting
+
+The Postscript Back In Stock feature places a "Back In Stock" link by searching for an element on the product page with the ID `ps__bis_target_container`. Once found, the link is injected within this designated element. To enhance styling capabilities and indicate successful link placement, the class `ps-bis-custom-container-added` is added to the container. This allows developers to style the container differently based on whether the link has been added. Importantly, the link will not be injected if the product is in stock or if the customer has previously signed up to be notified when it is back in stock.
+
+In cases where the `ps__bis_target_container` does not exist on the page, the Postscript SDK will adapt by automatically adding the button to the parent element of the disabled "Add to Cart" button. This ensures that the Back In Stock functionality is integrated, regardless of the specific page layout.
+
+# Integration with Klaviyo Back In Stock
+
+Many retailers who leverage Postscript for SMS marketing also employ Klaviyo for email marketing. For a cohesive user experience, it may be desirable to position the Postscript "Back In Stock" link adjacent to Klaviyo's corresponding link. To achieve this seamless integration, utilize both Klaviyo's configuration settings and Postscript's targeting functionality as described below.
+
+## Specifying a Klaviyo Target
+
+Klaviyo offers the capability to designate a specific target for their "Back In Stock" link via their JavaScript configuration. When enabling Klaviyo's `backinstock` feature, include the `trigger.alternate_anchor` setting in the `klaviyo.enable` function call. Set this value to `kl-bis-container.` This adjustment is generally made within the `layout/theme.liquid` template file of your site. Below is an example illustrating how to integrate this setting:
+
+```javascript
+klaviyo.enable("backinstock",{ 
+  trigger: {
+    product_page_text: "Notify by email",
+    product_page_class: "btn",
+    product_page_text_align: "center",
+    product_page_margin: "0px",
+    replace_anchor: false,
+    alternate_anchor: 'kl-bis-container'
+  },
+  modal: {
+    headline: "{product_name}",
+    body_content: "Register to receive a notification when this item comes back in stock.",
+    email_field_label: "Email",
+    button_label: "Notify me when available",
+    subscription_success_label: "You're in! We'll let you know when it's back.",
+    footer_content: '',
+    additional_styles: "@import url('https://fonts.googleapis.com/css?family=Helvetica+Neue');",
+    drop_background_color: "#000",
+    background_color: "#fff",
+    text_color: "#222",
+    button_text_color: "#fff",
+    button_background_color: "#439fdb",
+    close_button_color: "#ccc",
+    error_background_color: "#fcd6d7",
+    error_text_color: "#C72E2F",
+    success_background_color: "#d3efcd",
+    success_text_color: "#1B9500"
+  }
+});
+
+```
+
+## Adding Targets to Product Page
+
+Next, you should add elements with the IDs `ps__bis_target_container` for Postscript and `kl-bis-container` for Klaviyo at the desired locations on your product page. There is no need to include conditional checks for stock availability in your JavaScript, as each service will automatically determine the necessity of rendering their respective links based on product stock status.
+
+Below is an example of the Liquid markup to insert into your product page template (or section) and CSS to your theme styles to ensure that the links are displayed adjacently and styled as buttons. Depending on your existing site design, you may need to modify the CSS to better match your current button styling.
+
+```liquid
+<div id="ps-kl-bis-container">
+  <div id="ps__bis_target_container"></div>
+  <div id="kl-bis-container"></div>
+</div>
+
+``````liquid
+#ps-kl-bis-container {
+  --button-border-radius: 10px;
+  --button-bg: #5724e9;
+  --button-hover: #3911ab;
+  --button-spacing: 2px;
+  --button-text: #ffffff;
+  --button-font-size: 15px;
+}
+
+#ps-kl-bis-container {
+  display: flex; 
+  width: 100%;
+}
+
+
+#kl-bis-container, #ps__bis_target_container {
+  flex: 1;
+  text-align: center;
+}
+
+.klaviyo-bis-trigger {
+  display: block;
+}
+
+.klaviyo-bis-trigger,
+#ps-kl-bis-container #ps-bis-widget__button.ps-bis-button {
+  color: var(--button-text);
+  font-size: var(--button-font-size);
+  font-weight: normal;
+  text-decoration: none;
+  padding: 10px 0px;
+  line-height: 27px;
+  width: 100%;
+  background-color: var(--button-bg);
+  border-radius: var(--button-border-radius);
+}
+
+#ps__bis_target_container.ps-bis-custom-container-added {
+  margin-right: var(--button-spacing);
+}
+
+
+.klaviyo-bis-trigger:hover,
+#ps-kl-bis-container #ps-bis-widget__button.ps-bis-button:hover {
+  background-color: var(--button-hover);
+}
+
+#ps-kl-bis-container .ps-bis-fade-in {
+  animation: none;
+}
+
+```
+
+## Additional Configuration Information
+
+Some styles and configuration for the links may need to be adjust in order to get the desired functionality. Within Postscript this configuration is done within the Postscript admin on the [Back In Stock Popup Page](https://help.postscript.io/hc/en-us/articles/4416657285019-Back-in-Stock-Automation-and-List-Growth-Tool#Customize-Your-Back-In-Stock-Opt-In)
+. For Klaviyo, this configuration is done in the Klaviyo `klaviyo.enable` function call which is typically in your `layout/theme.liquid` template file. For example, you may want to adjust the text of the links to better fit within the allowed area of your product page.
+
+Did this page help you?
+
+Yes
+
+No
