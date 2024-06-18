@@ -1,0 +1,47 @@
+---
+title: "Technical Partners"
+description: "Steps to obtain partner API keys and authorization details."
+---
+## Technical Partners
+
+> ## 📘Get Your Partner Keys
+> 
+> Be sure to request your partner keys from the Postscript team. Request your API keys [here](https://dash.partnerstack.com/application?company=postscript&group=partnerpending)
+> .
+
+As a partner, you'll use your Private API Key for authorization/authentication.
+
+If you're making requests to get, add, update or delete one of your Triggers you won't need any additional authorization.
+
+If you're making requests on behalf of a Shopify shop (such as getting keywords, adding a subscriber, etc), you'll need to add the `X-Postscript-Shop-Token` header with a shop's Private API Key (obtained from the shop). Shops can find their API Key [here](https://app.postscript.io/account/api)
+. Shops will need to use their Private API Key within your partner requests (not their Public Key).
+
+## Shops
+
+As a shop, you'll use your Private API Key for authorization/authentication.
+
+You can find your API Key [here](https://app.postscript.io/account/api)
+. You will need to use your Private API Key to authorize requests (not your Public Key).
+
+## Authorization/Authentication
+
+To authorize and authenticate a request, use your Private API Key in the bearer token header, such as `Authorization: Bearer sk_1234567890abc` (partners would see their token closer to `Authorization: Bearer sk_partner_1234567890abc`). This allows for general authentication and conducts authorization of the various Postscript API endpoints.
+
+## Legacy Authentication
+
+Our legacy authentication method is still supported in the for of the basic auth header, such as `Authorization Basic cGtfMTIzNDU2Nzg5MGFiYzo=`. Remember when using this method to always base64 encode this header where the username is your Private API Key and the password is blank, such as `base64_encode('pk_1234567890abc:')`
+
+## Security
+
+Do note that in order to access our API, you need to use your **private** API token. Because of this, be aware that you don't want to expose this (or a shop's token) to the outside world. That could lead to potential abuses.
+
+The most common scenario that may lead you to exposing your private API tokens to the outside world is trying to make a call to our API from your frontend client (aka through javascript included in your website code). There is no way to hide this code from anyone who wants to discover it. Therefore, we advise you to **not** call our API from your frontend client. Instead, you can either call your own backend API and then send our API a request from there, or you could use a service like [Zapier](https://zapier.com/)
+ to trigger a call to our API privately.
+
+For example, using Zapier’s triggers & actions, your client can send a webhook “trigger” to Zapier with your form data, and then have an “action” within Zapier that sends the authenticated API request to Postscript. This ensures that your Postscript API tokens aren’t exposed client-side (they’re only available within Zapier).
+
+Did this page help you?
+
+Yes
+
+No
